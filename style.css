@@ -1,3 +1,16 @@
 /** {
   border: 2px solid yellow;
 }*/
+
+#calendar,
+#tasks,
+#forecast,
+#temp,
+#date_time {
+  background-color: grey;
+  border: 2px solid black;
+}
+
+ .navbar-inverse .navbar-brand{
+  color: red;
+}
