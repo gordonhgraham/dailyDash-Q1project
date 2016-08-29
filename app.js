@@ -1,7 +1,6 @@
 $(document).ready(function() {
   //get, format, display date and time
   (function() {
-    let today = new Date()
 
     function formatDay(i) {
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -22,6 +21,7 @@ $(document).ready(function() {
     }
 
     function getDate() {
+      let today = new Date()
       let day = formatDay(today.getDay());
       let date = today.getDate();
       let month = formatMonth(today.getMonth());
@@ -30,9 +30,9 @@ $(document).ready(function() {
     }
 
     function getTime() {
-      hr = formatHour(today.getHours()),
-        min = formatTime(today.getMinutes()),
-        sec = formatTime(today.getSeconds()); //time display breaks if seconds is removed. Needed for setTimeout?
+      let today = new Date()
+      let hr = formatHour(today.getHours());
+      let min = formatTime(today.getMinutes());
       $('#time').text(hr + ":" + min)
       t = setTimeout(function() {
         getTime();
@@ -46,37 +46,17 @@ $(document).ready(function() {
 
   //current weather
   (function() {
-    console.log('Before AJAX');
-    let $weather_data = $.getJSON('https://api.forecast.io/forecast/679f361d95ab79e1c8e2aa37494fa86d/40.055550,-105.208595');
-
+    let $weather_data = $.getJSON('https://dailydash.herokuapp.com/40.055550,-105.208595');
     $weather_data.done(function(data) {
-      if ($xhr.status !== 200) {
+      if ($weather_data.status !== 200) {
         return;
       }
-      console.log('Hello');
-      console.log(data['summary']);
-      console.log(data['apparentTemperature']);
+      console.log(data.currently.summary);
+      console.log(data.currently.apparentTemperature);
     });
+
     $weather_data.fail(function(err) {
       console.log(err);
     });
   })();
-
-//ajax longhand--weather
-  // (function() {
-  //   $.ajax({
-  //     type: 'GET',
-  //     url: 'https://api.forecast.io/forecast/679f361d95ab79e1c8e2aa37494fa86d/40.055550,-105.208595',
-  //     dataType: 'json',
-  //     success: function(data) {
-  //       console.log('wahoo!');
-  //       console.log(data['summary']);
-  //       console.log(data['apparentTemperature']);
-  //     },
-  //     fail: function(err) {
-  //       console.log(err);
-  //     }
-  //   });
-  // })();
-
 })
