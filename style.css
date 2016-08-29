@@ -7,11 +7,7 @@ body {
 }*/
 
 .widget {
-  background-color: rgba(160, 160, 160, 0.7);
-  /*border: 2px solid black;*/
+  background-color: rgba(64, 64, 64, 0.7);
+  /*border: 1px solid black;*/
   border-radius: 15px;
-}
-
- .navbar-inverse .navbar-brand{
-  /*color: red;*/
 }
