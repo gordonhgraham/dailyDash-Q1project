@@ -1,16 +1,17 @@
+body {
+  background-image: url('https://source.unsplash.com/category/nature/1600x900');
+}
+
 /** {
   border: 2px solid yellow;
 }*/
 
-#calendar,
-#tasks,
-#forecast,
-#temp,
-#date_time {
-  background-color: grey;
-  border: 2px solid black;
+.widget {
+  background-color: rgba(160, 160, 160, 0.7);;
+  /*border: 2px solid black;*/
+  border-radius: 15px;
 }
 
  .navbar-inverse .navbar-brand{
-  color: red;
+  /*color: red;*/
 }
