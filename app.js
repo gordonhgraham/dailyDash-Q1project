@@ -45,21 +45,38 @@ $(document).ready(function() {
   })();
 
   //current weather
-//   (function() {
-//     console.log('Before AJAX');
-//     let $weather_data = $.getJSON('https://api.forecast.io/forecast/679f361d95ab79e1c8e2aa37494fa86d/40.055550,-105.208595');
-//     $weather_data.done(function(data) {
-//       if ($xhr.status !== 200) {
-//         return;
-//       }
-//       console.log('Hello');
-//       console.log(data['summary']);
-//       console.log(data['apparentTemperature']);
-//     });
-//     $weather_data.fail(function(err) {
-//     console.log(err);
-// });
-//   })();
+  (function() {
+    console.log('Before AJAX');
+    let $weather_data = $.getJSON('https://api.forecast.io/forecast/679f361d95ab79e1c8e2aa37494fa86d/40.055550,-105.208595');
 
+    $weather_data.done(function(data) {
+      if ($xhr.status !== 200) {
+        return;
+      }
+      console.log('Hello');
+      console.log(data['summary']);
+      console.log(data['apparentTemperature']);
+    });
+    $weather_data.fail(function(err) {
+      console.log(err);
+    });
+  })();
+
+//ajax longhand--weather
+  // (function() {
+  //   $.ajax({
+  //     type: 'GET',
+  //     url: 'https://api.forecast.io/forecast/679f361d95ab79e1c8e2aa37494fa86d/40.055550,-105.208595',
+  //     dataType: 'json',
+  //     success: function(data) {
+  //       console.log('wahoo!');
+  //       console.log(data['summary']);
+  //       console.log(data['apparentTemperature']);
+  //     },
+  //     fail: function(err) {
+  //       console.log(err);
+  //     }
+  //   });
+  // })();
 
 })
