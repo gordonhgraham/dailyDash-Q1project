@@ -1,62 +1,76 @@
-$(document).ready(function() {
-  //get, format, display date and time
+$(document).ready(() => {
+  'use strict';
+
+  // strict mode
+  // get, format, display date and time
   (function() {
+    const formatDay = function(i) {
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-    function formatDay(i) {
-      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
       return days[i];
-    }
-    //turn off if user selects 24 hour time display
-    function formatHour(h) {
-      return (h > 12) ? h - 12 : h;
-    }
+    };
 
-    function formatMonth(j) {
-      const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+    // turn off if user selects 24 hour time display
+    const formatHour = function(hr) {
+      return (hr > 12) ? hr - 12 : hr;
+    };
+
+    const formatMonth = function(j) {
+      const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
       return months[j];
-    }
+    };
 
-    function formatTime(i) {
-      return (i < 10) ? "0" + i : i;
-    }
+    const formatTime = function(i) {
+      return (i < 10) ? `'0'${i}` : i;
+    };
 
-    function getDate() {
-      let today = new Date()
-      let day = formatDay(today.getDay());
-      let date = today.getDate();
-      let month = formatMonth(today.getMonth());
-      let year = today.getFullYear();
+    const getDate = function() {
+      const today = new Date();
+      const day = formatDay(today.getDay());
+      const date = today.getDate();
+      const month = formatMonth(today.getMonth());
+      const year = today.getFullYear();
+
       $('#date').text(`${day} | ${month} ${date}, ${year}`);
-    }
+    };
 
-    function getTime() {
-      let today = new Date()
-      let hr = formatHour(today.getHours());
-      let min = formatTime(today.getMinutes());
-      $('#time').text(hr + ":" + min)
-      t = setTimeout(function() {
+    const getTime = function() {
+      const today = new Date();
+      const hr = formatHour(today.getHours());
+      const min = formatTime(today.getMinutes());
+
+      $('#time').text(`${hr}:${min}`);
+      setTimeout(() => {
         getTime();
         getDate();
       }, 500);
-    }
+    };
 
     getDate();
     getTime();
   })();
 
-  //current weather
+  // current temperature
   (function() {
-    let $weather_data = $.getJSON('https://dailydash.herokuapp.com/40.055550,-105.208595');
-    $weather_data.done(function(data) {
-      if ($weather_data.status !== 200) {
+    const $weatherData = $.getJSON('https://dailydash.herokuapp.com/40.055550,-105.208595');
+
+    $weatherData.done((data) => {
+      if ($weatherData.status !== 200) {
         return;
       }
-      let current_temp = Math.round(data.currently.apparentTemperature);
-      $('#temp > h1').text(`${current_temp}\u00B0`);
+      const currentTemp = Math.round(data.currently.apparentTemperature);
+
+      $('#temp > h1').text(`${currentTemp}\u00B0`);
+
+      // get info for current conditions
+      // get info for forecast
     });
 
-    $weather_data.fail(function(err) {
-      console.log(err);
+    $weatherData.fail((err) => {
+      return err;
+
+      // console.log(err);
     });
   })();
-})
+});
