@@ -80,11 +80,11 @@
                                 <br><br>
                             </li>
                             <li>
-                              <p>
-                                <h4>Current Location</h4>
-                                <label for="zip">Zip Code</label>
-                                <br><input type="tel" name="zip" value="80302">
-                              </p>
+                                <p>
+                                    <h4>Current Location</h4>
+                                    <label for="zip">Zip Code</label>
+                                    <br><input type="tel" name="zip" value="80302">
+                                </p>
                             </li>
                             <li>calendar subscriptions</li>
                         </ul>
@@ -101,8 +101,8 @@
         <!-- /.modal -->
     </header>
     <div class="main container-fluid">
-        <div class="row">
-            <div id="calendar" class="col-md-4 widget">
+        <div class="row top-row">
+            <div id="calendar" class="col-md-3 widget">
                 <p>
                     Calendar
                     <ul>
@@ -113,7 +113,7 @@
                     </ul>
                 </p>
             </div>
-            <div id="forecast" class="col-md-2 col-md-offset-6 widget">
+            <div id="forecast" class="col-md-3 col-md-offset-6 widget">
                 <p>
                     Forecast
                     <ul>
@@ -125,8 +125,8 @@
                 </p>
             </div>
         </div>
-        <div class="row">
-            <div id="tasks" class="col-md-4 widget">
+        <div class="row bottom-row">
+            <div id="tasks" class="col-md-3 widget">
                 <p>
                     Tasks
                     <ul>
@@ -137,14 +137,14 @@
                     </ul>
                 </p>
             </div>
-            <div id="temp" class="col-md-2 col-md-offset-6 widget">
+            <div id="temp" class="col-md-3 col-md-offset-6 widget">
                 <p>
                     Current Temperature
                     <h1></h1>
-                    <a href="http://forecast.io">More at forecast.io</a>
                 </p>
+                <a href="http://forecast.io">More at forecast.io</a>
             </div>
-            <div id="date_time" class="col-md-4 widget">
+            <div id="date_time" class="col-md-6 widget">
                 <p>
                     <h1 id="time" class="text-center"></h1>
                     <h1 id="date" class="text-center"></h1>

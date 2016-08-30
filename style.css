@@ -1,13 +1,27 @@
 body {
+  background-color: darkgrey;
   background-image: url('https://source.unsplash.com/category/nature/1600x900');
 }
 
-/** {
-  border: 2px solid yellow;
-}*/
-
 .widget {
-  background-color: rgba(64, 64, 64, 0.7);
+  background-color: rgba(64, 64, 64, 0.8);
   /*border: 1px solid black;*/
   border-radius: 15px;
+  padding: 15px;
+  margin-top: 4px;
+  color: #f8f8f8;
+  text-align: center;
+}
+
+.widget  ul {
+  list-style: none;
+
+}
+
+.top-row {
+  height: 45%;
+}
+
+.bottom-row {
+  height: 45%;
 }
