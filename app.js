@@ -51,8 +51,8 @@ $(document).ready(function() {
       if ($weather_data.status !== 200) {
         return;
       }
-      console.log(data.currently.summary);
-      console.log(data.currently.apparentTemperature);
+      let current_temp = Math.round(data.currently.apparentTemperature);
+      $('#temp > h1').text(`${current_temp}\u00B0`);
     });
 
     $weather_data.fail(function(err) {
