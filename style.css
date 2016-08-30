@@ -8,6 +8,7 @@ body {
   background-color: rgba(64, 64, 64, 0.8);
   /*border: 1px solid black;*/
   border-radius: 15px;
+  box-shadow: 0 0 20px rgba(64, 64, 64, 0.8);
   padding: 15px;
   margin-top: 4px;
   color: #f8f8f8;

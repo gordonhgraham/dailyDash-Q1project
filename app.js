@@ -1,7 +1,6 @@
 $(document).ready(() => {
   'use strict';
 
-  // strict mode
   // get, format, display date and time
   (function() {
     const formatDay = function(i) {
@@ -64,19 +63,17 @@ $(document).ready(() => {
         return;
       }
 
-      const weatherData = JSON.stringify(data);
+      const rawData = JSON.stringify(data);
 
-      localStorage.setItem('forecastResponse', weatherData);
+      localStorage.setItem('forecastResponse', rawData);
 
       $forecastIO.fail((err) => {
         return err;
-
-        // console.log(err);
       });
     });
   })();
 
-    // display current temp
+    // display current conditions
   (function() {
     const forecastResponse =
     JSON.parse(localStorage.getItem('forecastResponse'));
@@ -84,6 +81,17 @@ $(document).ready(() => {
     const currentTemp =
     Math.round(forecastResponse.currently.apparentTemperature);
 
-    $('#temp > h1').text(`${currentTemp}\u00B0`);
+    const skycons = new Skycons({ "color": '#f8f8f8' });
+    const currentIcon = forecastResponse.currently.icon;
+    const currentSummary = forecastResponse.currently.summary;
+
+    skycons.add('icon_current', currentIcon);
+    $('#current > h1').text(`${currentTemp}\u00B0`);
+    $('#current > p').text(currentSummary);
+    skycons.play();
   })();
+
+  // display hourly forecast
+
+  // display daily forecast
 });

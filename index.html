@@ -17,6 +17,9 @@
     <!-- Style.css -->
     <link rel="stylesheet" href="style.css" charset="utf-8">
 
+    <!-- skycons.js -->
+    <script type="text/javascript" src="attr/skycons.js"></script>
+
     <!-- App.js -->
     <script type="text/javascript" src="app.js"></script>
     <title>Daily Dash|Personal Dashboard</title>
@@ -144,11 +147,11 @@
                     </ul>
                 </p>
             </div>
-            <div id="temp" class="col-md-3 col-md-offset-6 widget">
-                <p>
-                    Current Temperature
-                    <h1></h1>
-                </p>
+            <div id="current" class="col-md-3 col-md-offset-6 widget">
+                Current Conditions <br><br>
+                <canvas id="icon_current" width="75" height="75"></canvas>
+                <h1></h1>
+                <p></p>
                 <a href="http://forecast.io">More at forecast.io</a>
             </div>
             <div id="date_time" class="col-md-6 widget">
