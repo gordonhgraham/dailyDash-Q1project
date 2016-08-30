@@ -5,7 +5,8 @@ $(document).ready(() => {
   // get, format, display date and time
   (function() {
     const formatDay = function(i) {
-      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+      'Friday', 'Saturday'];
 
       return days[i];
     };
@@ -16,7 +17,8 @@ $(document).ready(() => {
     };
 
     const formatMonth = function(j) {
-      const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+      const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July',
+      'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
       return months[j];
     };
