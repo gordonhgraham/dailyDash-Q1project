@@ -6,7 +6,8 @@ $(document).ready(() => {
   (function() {
     const formatDay = function(i) {
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-      'Friday', 'Saturday'];
+        'Friday', 'Saturday'
+      ];
 
       return days[i];
     };
@@ -18,13 +19,14 @@ $(document).ready(() => {
 
     const formatMonth = function(j) {
       const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July',
-      'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+        'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
+      ];
 
       return months[j];
     };
 
     const formatTime = function(i) {
-      return (i < 10) ? `'0'${i}` : i;
+      return (i < 10) ? `0${i}` : i;
     };
 
     const getDate = function() {
@@ -53,26 +55,31 @@ $(document).ready(() => {
     getTime();
   })();
 
-  // current temperature
+  // get data from forecast.io
   (function() {
-    const $weatherData = $.getJSON('https://dailydash.herokuapp.com/40.055550,-105.208595');
+    const $forecastIO = $.getJSON('https://dailydash.herokuapp.com/40.055550,-105.208595');
 
-    $weatherData.done((data) => {
-      if ($weatherData.status !== 200) {
+    $forecastIO.done((data) => {
+      if ($forecastIO.status !== 200) {
         return;
       }
-      const currentTemp = Math.round(data.currently.apparentTemperature);
+      const weatherData = data;
 
-      $('#temp > h1').text(`${currentTemp}\u00B0`);
+      localStorage.setItem('forecastResponse', weatherData);
 
-      // get info for current conditions
-      // get info for forecast
+      $forecastIO.fail((err) => {
+        return err;
+
+        // console.log(err);
+      });
     });
+  })();
 
-    $weatherData.fail((err) => {
-      return err;
+    // display current temp
+    // need to adjust scope of data returned form forecast.io
+  (function() {
+    const currentTemp = Math.round(data.currently.apparentTemperature);
 
-      // console.log(err);
-    });
+    $('#temp > h1').text(`${currentTemp}\u00B0`);
   })();
 });
