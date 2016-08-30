@@ -63,7 +63,8 @@ $(document).ready(() => {
       if ($forecastIO.status !== 200) {
         return;
       }
-      const weatherData = data;
+
+      const weatherData = JSON.stringify(data);
 
       localStorage.setItem('forecastResponse', weatherData);
 
@@ -76,9 +77,12 @@ $(document).ready(() => {
   })();
 
     // display current temp
-    // need to adjust scope of data returned form forecast.io
   (function() {
-    const currentTemp = Math.round(data.currently.apparentTemperature);
+    const forecastResponse =
+    JSON.parse(localStorage.getItem('forecastResponse'));
+
+    const currentTemp =
+    Math.round(forecastResponse.currently.apparentTemperature);
 
     $('#temp > h1').text(`${currentTemp}\u00B0`);
   })();
