@@ -51,17 +51,42 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Preferences &amp; Settings</h4>
+                        <h3 class="modal-title">Settings &amp; Preferences</h3>
                     </div>
                     <div class="modal-body">
-                        <p>Here will be setting options</p>
                         <ul>
-                          <li>Photo options--select color or black &amp; white</li>
-                          <li>Time display options--24 or 12 hr time</li>
-                          <li>weather options--type in zip or city name</li>
-                          <li>weather options--temp in F&deg; or C&deg;</li>
-                          <li>calendar subscriptions</li>
-                          <li>todo list options</li>
+                            <li>
+                                <p>
+                                    <h4>Time Display:</h4>
+                                </p>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary active">
+                                      <input type="checkbox" autocomplete="off" checked> 12 Hr </label>
+                                    <label class="btn btn-primary">
+                                      <input type="checkbox" autocomplete="off"> 24 Hr </label>
+                                </div>
+                                <br><br>
+                            </li>
+                            <li>
+                                <p>
+                                    <h4>Temperature Display Units:</h4>
+                                </p>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary active">
+                                    <input type="checkbox" autocomplete="off" checked> F&deg; </label>
+                                    <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off"> C&deg; </label>
+                                </div>
+                                <br><br>
+                            </li>
+                            <li>
+                              <p>
+                                <h4>Current Location</h4>
+                                <label for="zip">Zip Code</label>
+                                <br><input type="tel" name="zip" value="80302">
+                              </p>
+                            </li>
+                            <li>calendar subscriptions</li>
                         </ul>
                     </div>
                     <div class="modal-footer">
