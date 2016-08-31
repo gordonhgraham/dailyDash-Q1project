@@ -1,10 +1,26 @@
 $(document).ready(() => {
   'use strict';
 
-  // get lat lon data from google geocode API
-  const zip = 80302;
-  let lat;
-  let lon;
+  // get weather data from forecast.io
+  const queryForecast = function(lat, lon) {
+    const $forecastIO = $.getJSON(`https://dailydash.herokuapp.com/${lat},${lon}`);
+
+    $forecastIO.done((data) => {
+      if ($forecastIO.status !== 200) {
+        return;
+      }
+      const rawData = JSON.stringify(data);
+
+      localStorage.setItem('forecastResponse', rawData);
+    });
+    $forecastIO.fail((err) => {
+      return err;
+    });
+  };
+
+  // get latitude and longitude from google geocode API
+  const zip = 61821;
+
   const getLatLon = function(zip) {
     const $geocode = $.getJSON(`https://maps.googleapis.com/maps/api
 /geocode/json?address=${zip}&key=AIzaSyDRn-LQTI5bRG2k5CLE5elw8jgnthn20wk`);
@@ -13,48 +29,25 @@ $(document).ready(() => {
       if ($geocode.status !== 200) {
         return;
       }
+      const lat = data.results[0].geometry.location.lat;
+      const lon = data.results[0].geometry.location.lng;
+      const city = data.results[0].address_components[1].long_name;
+      const state = data.results[0].address_components[3].short_name;
 
-      const rawData = JSON.stringify(data);
+      $('#location').text(`${city} | ${state}`);
 
-      lat = rawData;
-      // .results[0].geometry.location.lat;
-      // lon = rawData.results[0].geometry.location.lng;
+      queryForecast(lat, lon);
+
+      return;
     });
 
     $geocode.fail((err) => {
       return err;
     });
   };
-
   getLatLon(zip);
-  console.log(lat);
-  console.log(lon);
 
-  // get data from forecast.io
-  const queryForecast = function(lat, lon) {
-    // const lat = 40.055550;
-    // const lon = -105.208595;
-    const $forecastIO = $.getJSON(`https://dailydash.herokuapp.com/${lat},${lon}`);
-
-    $forecastIO.done((data) => {
-      if ($forecastIO.status !== 200) {
-        return;
-      }
-
-      const rawData = JSON.stringify(data);
-
-      localStorage.setItem('forecastResponse', rawData);
-    });
-
-    $forecastIO.fail((err) => {
-      return err;
-    });
-  };
-
-  queryForecast(lat, lon);
-
-
-  // get, format, display date and time, trigger hourly update of weather data
+  // get, format, display date and time
   (function() {
     const formatDay = function(i) {
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
@@ -208,10 +201,8 @@ $(document).ready(() => {
     displayCurrentConditions();
     displayHourlyForecast();
     displayDailyForecast();
+    setTimeout(refreshWeatherData, 6e5);
   };
 
-  // timeout to refresh weather data
-  // const timeout10 = setTimeout(() => refreshWeatherData(), 6e5);
-  //
-  // timeout10();
+  // refreshWeatherData();
 });
