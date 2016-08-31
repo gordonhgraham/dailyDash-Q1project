@@ -1,7 +1,101 @@
 $(document).ready(() => {
   'use strict';
-  const zip = 80302;
+
+  const zip = localStorage.getItem('zip');
   const ampm = false;
+
+  // display current conditions
+  const displayCurrentConditions = function() {
+    const forecastResponse =
+      JSON.parse(localStorage.getItem('forecastResponse'));
+
+    const currentTemp =
+      Math.round(forecastResponse.currently.apparentTemperature);
+
+    const skycons = new Skycons({
+      color: '#f8f8f8'
+    });
+    const currentIcon = forecastResponse.currently.icon;
+    const currentSummary = forecastResponse.currently.summary;
+
+    skycons.add('icon_current', currentIcon);
+    $('#current > h1').text(`${currentTemp}\u00B0`);
+    $('#current > #summary').text(currentSummary);
+    skycons.play();
+  };
+
+  // display hourly forecast
+  const displayHourlyForecast = function() {
+    const forecastResponse =
+      JSON.parse(localStorage.getItem('forecastResponse'));
+
+    const hourlyForecast = [];
+
+    // retreive forecast for each hour and store in array
+    for (let i = 1; i < 5; i++) {
+      const hourlyTemp =
+        Math.round(forecastResponse.hourly.data[i].apparentTemperature);
+
+      const hourlyIcon =
+        forecastResponse.hourly.data[i].icon;
+
+      const hourlyPrecipProb =
+        (forecastResponse.hourly.data[i].precipProbability) * 100;
+
+      const hourlyForecastObj = {
+        icon: hourlyIcon,
+        precipProb: hourlyPrecipProb,
+        temp: hourlyTemp
+      };
+
+      hourlyForecast.push(hourlyForecastObj);
+    }
+
+    for (let i = 0; i < hourlyForecast.length; i++) {
+      $(`#t${i + 1}hr`)
+        .text(`time + ${i + 1} hr Temperature ${hourlyForecast[i].temp}
+        Chance of precipitation ${hourlyForecast[i].precipProb}%`);
+    }
+
+    // show icons for hourly forecast
+    // const skycons = new Skycons({ color: '#f8f8f8' });
+    // skycons.add('icon_t+1hr', hourlyIcon);
+    // skycons.play();
+  };
+
+  // display daily forecast
+  const displayDailyForecast = function() {
+    const forecastResponse =
+      JSON.parse(localStorage.getItem('forecastResponse'));
+
+    const dailyForecast = [];
+
+    // retreive forecast for each day and store in array
+    for (let i = 1; i < 5; i++) {
+      const dailyHighTemp =
+        Math.round(forecastResponse.daily.data[i].apparentTemperatureMax);
+
+      const dailyLowTemp =
+        Math.round(forecastResponse.daily.data[i].apparentTemperatureMin);
+
+      const dailyIcon =
+        forecastResponse.daily.data[i].icon;
+
+      const dailyForecastObj = {
+        highTemp: dailyHighTemp,
+        icon: dailyIcon,
+        lowTemp: dailyLowTemp
+      };
+
+      dailyForecast.push(dailyForecastObj);
+    }
+
+    for (let i = 0; i < dailyForecast.length; i++) {
+      $(`#t${i + 1}d`)
+        .text(`time + ${i + 1}d HighTemp ${dailyForecast[i].highTemp}
+        LowTemp ${dailyForecast[i].lowTemp}`);
+    }
+  };
 
   // get weather data from forecast.io
   const queryForecast = function(lat, lon) {
@@ -14,6 +108,9 @@ $(document).ready(() => {
       const rawData = JSON.stringify(data);
 
       localStorage.setItem('forecastResponse', rawData);
+      displayCurrentConditions();
+      displayHourlyForecast();
+      displayDailyForecast();
     });
     $forecastIO.fail((err) => {
       return err;
@@ -21,7 +118,6 @@ $(document).ready(() => {
   };
 
   // get latitude and longitude from google geocode API
-
   const getLatLon = function(zip) {
     const $geocode = $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=AIzaSyDRn-LQTI5bRG2k5CLE5elw8jgnthn20wk`);
 
@@ -103,111 +199,18 @@ $(document).ready(() => {
     getTime();
   };
 
-  // display current conditions
-  const displayCurrentConditions = function() {
-    const forecastResponse =
-      JSON.parse(localStorage.getItem('forecastResponse'));
-
-    const currentTemp =
-      Math.round(forecastResponse.currently.apparentTemperature);
-
-    const skycons = new Skycons({
-      color: '#f8f8f8'
-    });
-    const currentIcon = forecastResponse.currently.icon;
-    const currentSummary = forecastResponse.currently.summary;
-
-    skycons.add('icon_current', currentIcon);
-    $('#current > h1').text(`${currentTemp}\u00B0`);
-    $('#current > p').text(currentSummary);
-    skycons.play();
-  };
-
-  // display hourly forecast
-  const displayHourlyForecast = function() {
-    const forecastResponse =
-      JSON.parse(localStorage.getItem('forecastResponse'));
-
-    const hourlyForecast = [];
-
-    // retreive forecast for each hour and store in array
-    for (let i = 1; i < 5; i++) {
-      const hourlyTemp =
-        Math.round(forecastResponse.hourly.data[i].apparentTemperature);
-
-      const hourlyIcon =
-        forecastResponse.hourly.data[i].icon;
-
-      const hourlyPrecipProb =
-        (forecastResponse.hourly.data[i].precipProbability) * 100;
-
-      const hourlyForecastObj = {
-        icon: hourlyIcon,
-        precipProb: hourlyPrecipProb,
-        temp: hourlyTemp
-      };
-
-      hourlyForecast.push(hourlyForecastObj);
-    }
-
-    for (let i = 0; i < hourlyForecast.length; i++) {
-      $(`#t${i + 1}hr`)
-        .text(`time + ${i + 1} hr Temperature ${hourlyForecast[i].temp}
-        Chance of precipitation ${hourlyForecast[i].precipProb}%`);
-    }
-
-    // show icons for hourly forecast
-    // const skycons = new Skycons({ color: '#f8f8f8' });
-    // skycons.add('icon_t+1hr', hourlyIcon);
-    // skycons.play();
-  };
-
-  // display daily forecast
-  const displayDailyForecast = function() {
-    const forecastResponse =
-      JSON.parse(localStorage.getItem('forecastResponse'));
-
-    const dailyForecast = [];
-
-    // retreive forecast for each day and store in array
-    for (let i = 1; i < 5; i++) {
-      const dailyHighTemp =
-        Math.round(forecastResponse.daily.data[i].apparentTemperatureMax);
-
-      const dailyLowTemp =
-        Math.round(forecastResponse.daily.data[i].apparentTemperatureMin);
-
-      const dailyIcon =
-        forecastResponse.daily.data[i].icon;
-
-      const dailyForecastObj = {
-        highTemp: dailyHighTemp,
-        icon: dailyIcon,
-        lowTemp: dailyLowTemp
-      };
-
-      dailyForecast.push(dailyForecastObj);
-    }
-
-    for (let i = 0; i < dailyForecast.length; i++) {
-      $(`#t${i + 1}d`)
-        .text(`time + ${i + 1}d HighTemp ${dailyForecast[i].highTemp}
-        LowTemp ${dailyForecast[i].lowTemp}`);
-    }
-  };
-
   const refreshWeatherData = function() {
-    getLatLon();
-    displayCurrentConditions();
-    displayHourlyForecast();
-    displayDailyForecast();
+    getLatLon(zip);
     setTimeout(refreshWeatherData, 6e5);
   };
 
+  // save user input
+  $('#save_changes').click(() => {
+    window.alert('settings saved');
+    localStorage.setItem('zip', $('input[name=zip]').val());
+    refreshWeatherData();
+  });
+
   dateTime(ampm);
-  getLatLon(zip);
-  displayCurrentConditions();
-  displayHourlyForecast();
-  displayDailyForecast();
-  refreshWeatherData();
+  refreshWeatherData(zip);
 });

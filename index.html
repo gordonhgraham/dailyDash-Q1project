@@ -93,7 +93,7 @@
                                 <p>
                                     <h4>Current Location</h4>
                                     <label for="zip">Zip Code</label>
-                                    <br><input type="tel" name="zip" value="80302">
+                                    <br><input type="tel" name="zip" value="">
                                 </p><br>
                             </li>
                             <li>
@@ -105,7 +105,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="save_changes">Save changes</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -159,12 +159,10 @@
               </p>
             </div>
             <div id="current" class="col-md-3 widget">
-                Current Conditions <p id='location'>
-
-                </p> <br>
+                Current Conditions <p id='location'></p> <br>
                 <canvas id="icon_current" width="75" height="75"></canvas>
                 <h1></h1>
-                <p></p>
+                <p id="summary"></p>
                 <!-- <a href="http://forecast.io">More at forecast.io</a> -->
             </div>
         </div>
