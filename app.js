@@ -76,7 +76,7 @@ $(document).ready(() => {
   })();
 
   // display current conditions
-  (function() {
+  const displayCurrentConditions = function() {
     const forecastResponse =
       JSON.parse(localStorage.getItem('forecastResponse'));
 
@@ -93,10 +93,10 @@ $(document).ready(() => {
     $('#current > h1').text(`${currentTemp}\u00B0`);
     $('#current > p').text(currentSummary);
     skycons.play();
-  })();
+  };
 
   // display hourly forecast
-  (function() {
+  const displayHourlyForecast = function() {
     const forecastResponse =
       JSON.parse(localStorage.getItem('forecastResponse'));
 
@@ -131,10 +131,10 @@ $(document).ready(() => {
     // const skycons = new Skycons({ color: '#f8f8f8' });
     // skycons.add('icon_t+1hr', hourlyIcon);
     // skycons.play();
-  })();
+  };
 
   // display daily forecast
-  (function() {
+  const displayDailyForecast = function() {
     const forecastResponse =
       JSON.parse(localStorage.getItem('forecastResponse'));
 
@@ -165,5 +165,21 @@ $(document).ready(() => {
         .text(`time + ${i + 1}d HighTemp ${dailyForecast[i].highTemp}
         LowTemp ${dailyForecast[i].lowTemp}`);
     }
-  })();
+  };
+
+  displayCurrentConditions();
+  displayHourlyForecast();
+  displayDailyForecast();
+
+  const refreshWeatherData = function() {
+    queryForecast();
+    displayCurrentConditions();
+    displayHourlyForecast();
+    displayDailyForecast();
+  };
+
+  // timeout to refresh weather data
+  const timeout10 = setTimeout(() => refreshWeatherData(), 6e5);
+
+  timeout10();
 });
