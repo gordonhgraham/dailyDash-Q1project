@@ -1,5 +1,7 @@
 $(document).ready(() => {
   'use strict';
+  const zip = 80302;
+  const ampm = false;
 
   // get weather data from forecast.io
   const queryForecast = function(lat, lon) {
@@ -19,11 +21,9 @@ $(document).ready(() => {
   };
 
   // get latitude and longitude from google geocode API
-  const zip = 61821;
 
   const getLatLon = function(zip) {
-    const $geocode = $.getJSON(`https://maps.googleapis.com/maps/api
-/geocode/json?address=${zip}&key=AIzaSyDRn-LQTI5bRG2k5CLE5elw8jgnthn20wk`);
+    const $geocode = $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=AIzaSyDRn-LQTI5bRG2k5CLE5elw8jgnthn20wk`);
 
     $geocode.done((data) => {
       if ($geocode.status !== 200) {
@@ -40,15 +40,13 @@ $(document).ready(() => {
 
       return;
     });
-
     $geocode.fail((err) => {
       return err;
     });
   };
-  getLatLon(zip);
 
   // get, format, display date and time
-  (function() {
+  const dateTime = function() {
     const formatDay = function(i) {
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
         'Friday', 'Saturday'
@@ -57,9 +55,14 @@ $(document).ready(() => {
       return days[i];
     };
 
-    // turn off if user selects 24 hour time display
-    const formatHour = function(hr) {
-      return (hr > 12) ? hr - 12 : hr;
+    // ampm = true for 12 hour time, false for 24 hour time
+
+    const formatHour = function(hr, ampm) {
+      if (ampm === true) {
+        return (hr > 12) ? hr - 12 : hr;
+      }
+
+      return hr;
     };
 
     const formatMonth = function(j) {
@@ -98,7 +101,7 @@ $(document).ready(() => {
 
     getDate();
     getTime();
-  })();
+  };
 
   // display current conditions
   const displayCurrentConditions = function() {
@@ -153,6 +156,7 @@ $(document).ready(() => {
         Chance of precipitation ${hourlyForecast[i].precipProb}%`);
     }
 
+    // show icons for hourly forecast
     // const skycons = new Skycons({ color: '#f8f8f8' });
     // skycons.add('icon_t+1hr', hourlyIcon);
     // skycons.play();
@@ -192,17 +196,18 @@ $(document).ready(() => {
     }
   };
 
-  displayCurrentConditions();
-  displayHourlyForecast();
-  displayDailyForecast();
-
   const refreshWeatherData = function() {
-    queryForecast();
+    getLatLon();
     displayCurrentConditions();
     displayHourlyForecast();
     displayDailyForecast();
     setTimeout(refreshWeatherData, 6e5);
   };
 
-  // refreshWeatherData();
+  dateTime(ampm);
+  getLatLon(zip);
+  displayCurrentConditions();
+  displayHourlyForecast();
+  displayDailyForecast();
+  refreshWeatherData();
 });
