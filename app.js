@@ -1,8 +1,14 @@
 $(document).ready(() => {
   'use strict';
 
+  // user input
   const zip = localStorage.getItem('zip');
   const ampm = false;
+
+  // populate settings page with user input
+  $('input[name=zip]').val(zip);
+  $('#12hr').prop('checked', ampm)
+
 
   // display current conditions
   const displayCurrentConditions = function() {
@@ -141,7 +147,7 @@ $(document).ready(() => {
   };
 
   // get, format, display date and time
-  const dateTime = function() {
+  const dateTime = function(ampm) {
     const formatDay = function(i) {
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
         'Friday', 'Saturday'
@@ -152,7 +158,7 @@ $(document).ready(() => {
 
     // ampm = true for 12 hour time, false for 24 hour time
 
-    const formatHour = function(hr, ampm) {
+    const formatHour = function(hr) {
       if (ampm === true) {
         return (hr > 12) ? hr - 12 : hr;
       }
@@ -205,6 +211,7 @@ $(document).ready(() => {
 
   // save user input
   $('#save_changes').click(() => {
+    localStorage.setItem('ampm', $('#12hr').prop('checked'))
     localStorage.setItem('zip', $('input[name=zip]').val());
     refreshWeatherData();
     location.reload(true);
