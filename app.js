@@ -121,10 +121,11 @@ $(document).ready(() => {
 
       hourlyForecast.push(hourlyForecastObj);
     }
-    console.log(hourlyForecast);
 
-    // $('#t+1hr > p').text(`${hourlyTemp}${hourlyPrecipProb}`);
-    // console.log(`${hourlyTemp},${hourlyPrecipProb}`);
+    for (let i = 0; i < hourlyForecast.length; i++) {
+      $(`#t${i + 1}hr`)
+      .text(`time + ${i + 1} hr Temperature ${hourlyForecast[i].temp} Chance of precipitation ${hourlyForecast[i].precipProb}%`);
+    }
 
       // const skycons = new Skycons({ color: '#f8f8f8' });
       // skycons.add('icon_t+1hr', hourlyIcon);
