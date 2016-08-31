@@ -3,11 +3,11 @@ $(document).ready(() => {
 
   // user input
   const zip = localStorage.getItem('zip');
-  const ampm = false;
+  const ampm = JSON.parse(localStorage.getItem('ampm'));
 
   // populate settings page with user input
   $('input[name=zip]').val(zip);
-  $('#12hr').prop('checked', ampm)
+  $('#12hr').prop('checked', ampm);
 
 
   // display current conditions
@@ -209,9 +209,18 @@ $(document).ready(() => {
     setTimeout(refreshWeatherData, 6e5);
   };
 
+  // display user input--radio buttons
+
+  $('div.12or24 label').click(() => {
+    $('div.12or24 label').toggleClass('active');
+  });
+
   // save user input
   $('#save_changes').click(() => {
-    localStorage.setItem('ampm', $('#12hr').prop('checked'))
+    // 12 or 24 hr time
+    localStorage.setItem('ampm', $('#12hr').prop('checked'));
+
+    // zipcode input
     localStorage.setItem('zip', $('input[name=zip]').val());
     refreshWeatherData();
     location.reload(true);
