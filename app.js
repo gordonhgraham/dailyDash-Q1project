@@ -1,7 +1,28 @@
 $(document).ready(() => {
   'use strict';
 
-  // get, format, display date and time
+  // get data from forecast.io
+  const queryForecast = function() {
+    const $forecastIO = $.getJSON('https://dailydash.herokuapp.com/40.055550,-105.208595');
+
+    $forecastIO.done((data) => {
+      if ($forecastIO.status !== 200) {
+        return;
+      }
+
+      const rawData = JSON.stringify(data);
+
+      localStorage.setItem('forecastResponse', rawData);
+    });
+
+    $forecastIO.fail((err) => {
+      return err;
+    });
+  };
+
+  queryForecast();
+
+  // get, format, display date and time, trigger hourly update of weather data
   (function() {
     const formatDay = function(i) {
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
@@ -54,34 +75,17 @@ $(document).ready(() => {
     getTime();
   })();
 
-  // get data from forecast.io
-  (function() {
-    const $forecastIO = $.getJSON('https://dailydash.herokuapp.com/40.055550,-105.208595');
-
-    $forecastIO.done((data) => {
-      if ($forecastIO.status !== 200) {
-        return;
-      }
-
-      const rawData = JSON.stringify(data);
-
-      localStorage.setItem('forecastResponse', rawData);
-
-      $forecastIO.fail((err) => {
-        return err;
-      });
-    });
-  })();
-
-    // display current conditions
+  // display current conditions
   (function() {
     const forecastResponse =
-    JSON.parse(localStorage.getItem('forecastResponse'));
+      JSON.parse(localStorage.getItem('forecastResponse'));
 
     const currentTemp =
-    Math.round(forecastResponse.currently.apparentTemperature);
+      Math.round(forecastResponse.currently.apparentTemperature);
 
-    const skycons = new Skycons({ "color": '#f8f8f8' });
+    const skycons = new Skycons({
+      color: '#f8f8f8'
+    });
     const currentIcon = forecastResponse.currently.icon;
     const currentSummary = forecastResponse.currently.summary;
 
@@ -92,6 +96,45 @@ $(document).ready(() => {
   })();
 
   // display hourly forecast
+  (function() {
+    const forecastResponse =
+      JSON.parse(localStorage.getItem('forecastResponse'));
 
-  // display daily forecast
+    const hourlyForecast = [];
+
+    // retreive forecast for each hour and store in array
+    for (let i = 1; i < 5; i++) {
+      const hourlyTemp =
+      Math.round(forecastResponse.hourly.data[i].apparentTemperature);
+
+      const hourlyIcon =
+      forecastResponse.hourly.data[i].icon;
+
+      const hourlyPrecipProb =
+      (forecastResponse.hourly.data[i].precipProbability) * 100;
+
+      const hourlyForecastObj = {
+        icon: hourlyIcon,
+        precipProb: hourlyPrecipProb,
+        temp: hourlyTemp
+      };
+
+      hourlyForecast.push(hourlyForecastObj);
+    }
+    console.log(hourlyForecast);
+
+    // $('#t+1hr > p').text(`${hourlyTemp}${hourlyPrecipProb}`);
+    // console.log(`${hourlyTemp},${hourlyPrecipProb}`);
+
+      // const skycons = new Skycons({ color: '#f8f8f8' });
+      // skycons.add('icon_t+1hr', hourlyIcon);
+      // skycons.play();
+  })();
+
+  // // display daily forecast
+  // (function() {
+  //   const forecastResponse =
+  //   JSON.parse(localStorage.getItem('forecastResponse'));
+  //
+  // })();
 });
