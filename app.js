@@ -131,7 +131,6 @@ $(document).ready(() => {
       const state = data.results[0].address_components[3].short_name;
 
       $('#location').text(`${city} | ${state}`);
-
       queryForecast(lat, lon);
 
       return;
@@ -206,9 +205,9 @@ $(document).ready(() => {
 
   // save user input
   $('#save_changes').click(() => {
-    window.alert('settings saved');
     localStorage.setItem('zip', $('input[name=zip]').val());
     refreshWeatherData();
+    location.reload(true);
   });
 
   dateTime(ampm);
