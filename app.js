@@ -105,13 +105,13 @@ $(document).ready(() => {
     // retreive forecast for each hour and store in array
     for (let i = 1; i < 5; i++) {
       const hourlyTemp =
-      Math.round(forecastResponse.hourly.data[i].apparentTemperature);
+        Math.round(forecastResponse.hourly.data[i].apparentTemperature);
 
       const hourlyIcon =
-      forecastResponse.hourly.data[i].icon;
+        forecastResponse.hourly.data[i].icon;
 
       const hourlyPrecipProb =
-      (forecastResponse.hourly.data[i].precipProbability) * 100;
+        (forecastResponse.hourly.data[i].precipProbability) * 100;
 
       const hourlyForecastObj = {
         icon: hourlyIcon,
@@ -124,18 +124,46 @@ $(document).ready(() => {
 
     for (let i = 0; i < hourlyForecast.length; i++) {
       $(`#t${i + 1}hr`)
-      .text(`time + ${i + 1} hr Temperature ${hourlyForecast[i].temp} Chance of precipitation ${hourlyForecast[i].precipProb}%`);
+        .text(`time + ${i + 1} hr Temperature ${hourlyForecast[i].temp}
+        Chance of precipitation ${hourlyForecast[i].precipProb}%`);
     }
 
-      // const skycons = new Skycons({ color: '#f8f8f8' });
-      // skycons.add('icon_t+1hr', hourlyIcon);
-      // skycons.play();
+    // const skycons = new Skycons({ color: '#f8f8f8' });
+    // skycons.add('icon_t+1hr', hourlyIcon);
+    // skycons.play();
   })();
 
-  // // display daily forecast
-  // (function() {
-  //   const forecastResponse =
-  //   JSON.parse(localStorage.getItem('forecastResponse'));
-  //
-  // })();
+  // display daily forecast
+  (function() {
+    const forecastResponse =
+      JSON.parse(localStorage.getItem('forecastResponse'));
+
+    const dailyForecast = [];
+
+    // retreive forecast for each day and store in array
+    for (let i = 1; i < 5; i++) {
+      const dailyHighTemp =
+        Math.round(forecastResponse.daily.data[i].apparentTemperatureMax);
+
+      const dailyLowTemp =
+        Math.round(forecastResponse.daily.data[i].apparentTemperatureMin);
+
+      const dailyIcon =
+        forecastResponse.daily.data[i].icon;
+
+      const dailyForecastObj = {
+        highTemp: dailyHighTemp,
+        icon: dailyIcon,
+        lowTemp: dailyLowTemp
+      };
+
+      dailyForecast.push(dailyForecastObj);
+    }
+
+    for (let i = 0; i < dailyForecast.length; i++) {
+      $(`#t${i + 1}d`)
+        .text(`time + ${i + 1}d HighTemp ${dailyForecast[i].highTemp}
+        LowTemp ${dailyForecast[i].lowTemp}`);
+    }
+  })();
 });
