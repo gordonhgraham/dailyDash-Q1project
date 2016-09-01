@@ -18,10 +18,10 @@ body {
   color: #f8f8f8;
   text-align: center;
 }
-.top-row {
-  height: 45%;
-}
 
-.bottom-row {
-  height: 45%;
+.row {
+  margin-top: 7%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
 }
