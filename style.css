@@ -1,6 +1,9 @@
 body {
   background-size: 100%;
   background-color: black;
+  height: 100%;
+  width: 100%;
+
   /*background-image: url('https://source.unsplash.com/category/nature/daily')*/
 }
 
@@ -12,16 +15,9 @@ body {
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(64, 64, 64, 0.8);
   padding: 15px;
-  margin-top: 4px;
   color: #f8f8f8;
   text-align: center;
 }
-
-.widget  ul {
-  list-style: none;
-
-}
-
 .top-row {
   height: 45%;
 }
