@@ -35,7 +35,7 @@ $(document).ready(() => {
   }
 
   // $(`${imgCategory.toLowerCase()}`).addClass('active');
-  // $(`input[value=${imgCategory}]`).prop('checked', true);
+  $(`input[value=${imgCategory}]`).parent().addClass('active');
 
   // change background image based on user selected category
   $('body').css('background-image', `url('https://source.unsplash.com/category/${imgCategory}/1600x900')`);
