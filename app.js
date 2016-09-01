@@ -65,8 +65,8 @@ $(document).ready(() => {
 
     for (let i = 0; i < hourlyForecast.length; i++) {
       $(`#t${i + 1}hr`)
-        .text(`time + ${i + 1} hr Temperature ${hourlyForecast[i].temp}
-        Chance of precipitation ${hourlyForecast[i].precipProb}%`);
+        .text(`+${i + 1} hr ${hourlyForecast[i].temp}\u00B0
+        ${hourlyForecast[i].precipProb}% Chance of precipitation `);
     }
 
     // show icons for hourly forecast
@@ -104,8 +104,8 @@ $(document).ready(() => {
 
     for (let i = 0; i < dailyForecast.length; i++) {
       $(`#t${i + 1}d`)
-        .text(`time + ${i + 1}d HighTemp ${dailyForecast[i].highTemp}
-        LowTemp ${dailyForecast[i].lowTemp}`);
+        .text(`+${i + 1}d High ${dailyForecast[i].highTemp}\u00B0
+        Low ${dailyForecast[i].lowTemp}\u00B0`);
     }
   };
 
@@ -217,13 +217,14 @@ $(document).ready(() => {
 
   // display user input--radio buttons
 
-  // save user input
+  // save user input and refresh
   $('#save_changes').click(() => {
     // 12 or 24 hr time
     localStorage.setItem('ampm', $('#12hr').hasClass('active'));
 
     // zipcode input
     localStorage.setItem('zip', $('input[name=zip]').val());
+
     refreshWeatherData();
     location.reload(true);
   });
