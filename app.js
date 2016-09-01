@@ -91,7 +91,7 @@ $(document).ready(() => {
     const dailyForecast = [];
 
     // retreive forecast for each day and store in array
-    for (let i = 1; i < 5; i++) {
+    for (let i = 1; i < 6; i++) {
       const formatDay = function(i) {
         const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
           'Friday', 'Saturday'
@@ -120,8 +120,10 @@ $(document).ready(() => {
 
     for (let i = 0; i < dailyForecast.length; i++) {
       $(`#t${i + 1}d`)
-        .text(`${dailyForecast[i].day} High ${dailyForecast[i].highTemp}\u00B0
-        Low ${dailyForecast[i].lowTemp}\u00B0`);
+        .html(`<th scope='row'>${dailyForecast[i].day}</th>
+        <td><canvas id="icon_t+${i}d" width="20" height="20"></canvas></td>
+        <td>${dailyForecast[i].highTemp}\u00B0</td>
+        <td>${dailyForecast[i].lowTemp}\u00B0</td>`);
     }
   };
 

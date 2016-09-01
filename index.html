@@ -75,7 +75,7 @@
                                     <label id="24hr" class="btn btn-primary">
                                       <input type="radio" name="options" autocomplete="off"> 24 Hr </label>
                                 </div>
-                                    <br><br>
+                                <br><br>
                             </li>
                             <li>
                                 <p>
@@ -97,36 +97,44 @@
                                 </p><br>
                             </li>
                         </ul>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" id="save_changes">Save changes &amp; Refresh</button>
-                        </div>
                     </div>
-                    <!-- /.modal-content -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Abandon changes &amp; Close</button>
+                        <button type="button" class="btn btn-primary" id="save_changes">Save changes &amp; Refresh</button>
+                    </div>
                 </div>
-                <!-- /.modal-dialog -->
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal -->
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
     </header>
     <div class="main container-fluid">
         <div class="row top-row">
             <div id="calendar" class="col-md-3 widget">
-                <p>
-                    Daily Forcast
-                    <ul>
-                        <li id="t1d">
-                            <p></p><canvas id="icon_t+1d" width="30" height="30"></canvas></li>
-                        <li id="t2d">
-                            <p></p><canvas id="icon_t+2d" width="30" height="30"></canvas></li>
-                        <li id="t3d">
-                            <p></p><canvas id="icon_t+3d" width="30" height="30"></canvas></li>
-                        <li id="t4d">
-                            <p></p><canvas id="icon_t+4d" width="30" height="30"></canvas></li>
-                        <li id="t5d">
-                            <p></p><canvas id="icon_t+5d" width="30" height="30"></canvas></li>
-                    </ul>
-                </p>
+                <h3>Daily Forecast</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Icon</th>
+                            <th>High</th>
+                            <th>Low</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="t1d">
+                        </tr>
+                        <tr id="t2d">
+                        </tr>
+                        <tr id="t3d">
+                        </tr>
+                        <tr id="t4d">
+                        </tr>
+                        <tr id="t5d">
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div id="forecast" class="col-md-3 col-md-offset-6 widget">
                 <p>
