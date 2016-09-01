@@ -1,11 +1,19 @@
 $(document).ready(() => {
   'use strict';
 
+  // set defaults
+  // if (!localStorage) {
+    // localStorage.setItem('imgCategory', 'nature');
+    // localStorage.setItem('ampm', true);
+    // localStorage.setItem('units', 'degF');
+    // localStorage.setItem('zip', 80302);
+  // }
+
   // user input
   const zip = localStorage.getItem('zip');
   const ampm = JSON.parse(localStorage.getItem('ampm'));
   const units = localStorage.getItem('units');
-  const imgCategory = (localStorage.getItem('imgCategory')).slice(41);
+  const imgCategory = (localStorage.getItem('imgCategory'));
 
   // populate settings page with user input
   $('input[name=zip]').val(zip);
@@ -25,8 +33,10 @@ $(document).ready(() => {
     $('degF').addClass('active');
     $('degC').removeClass('active');
   }
-  $(`.${imgCategory.toLowerCase()}`).addClass('active');
-  
+
+  // $(`${imgCategory.toLowerCase()}`).addClass('active');
+  // $(`input[value=${imgCategory}]`).prop('checked', true);
+
   // change background image based on user selected category
   $('body').css('background-image', `url('https://source.unsplash.com/category/${imgCategory}/1600x900')`);
 
@@ -250,8 +260,11 @@ $(document).ready(() => {
   // save user input and refresh
   $('#save_changes').click(() => {
     // background image category
+    // localStorage.setItem('imgCategory',
+    // $('.imgCategory.active').text());
+
     localStorage.setItem('imgCategory',
-    $('.imgCategory.active').text());
+    $('input:checked').val());
 
     // 12 or 24 hr time
     localStorage.setItem('ampm', $('#12hr').hasClass('active'));
@@ -263,8 +276,6 @@ $(document).ready(() => {
     if ($('#degC').hasClass('active')) {
       localStorage.setItem('units', 'si');
     }
-
-    $(`.${imgCategory}`).addClass('active');
 
     // zipcode input
     localStorage.setItem('zip', $('input[name=zip]').val());
