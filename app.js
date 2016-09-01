@@ -4,6 +4,9 @@ $(document).ready(() => {
   // user input
   const zip = localStorage.getItem('zip');
   const ampm = JSON.parse(localStorage.getItem('ampm'));
+  const units = localStorage.getItem('units');
+
+  console.log(units);
 
   // populate settings page with user input
   $('input[name=zip]').val(zip);
@@ -14,6 +17,14 @@ $(document).ready(() => {
   if (!ampm) {
     $('#24hr').addClass('active');
     $('#12hr').removeClass('active');
+  }
+  if (units === 'degF') {
+    $('degF').addClass('active');
+    $('degC').removeClass('active');
+  }
+  if (units === 'degC') {
+    $('degF').addClass('active');
+    $('degC').removeClass('active');
   }
 
   // display current conditions
@@ -129,7 +140,7 @@ $(document).ready(() => {
 
   // get weather data from forecast.io
   const queryForecast = function(lat, lon) {
-    const $forecastIO = $.getJSON(`https://dailydash.herokuapp.com/${lat},${lon}`);
+    const $forecastIO = $.getJSON(`https://dailydash.herokuapp.com/${lat},${lon}?units=${units}`);
 
     $forecastIO.done((data) => {
       if ($forecastIO.status !== 200) {
@@ -148,7 +159,7 @@ $(document).ready(() => {
   };
 
   // get latitude and longitude from google geocode API
-  const getLatLon = function(zip) {
+  const getLatLon = function(zip, units) {
     const $geocode = $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=AIzaSyDRn-LQTI5bRG2k5CLE5elw8jgnthn20wk`);
 
     $geocode.done((data) => {
@@ -161,7 +172,7 @@ $(document).ready(() => {
       const state = data.results[0].address_components[3].short_name;
 
       $('#location').text(`${city} | ${state}`);
-      queryForecast(lat, lon);
+      queryForecast(lat, lon, units);
 
       return;
     });
@@ -239,6 +250,14 @@ $(document).ready(() => {
   $('#save_changes').click(() => {
     // 12 or 24 hr time
     localStorage.setItem('ampm', $('#12hr').hasClass('active'));
+
+    // temperature display
+    if ($('#degF').hasClass('active')) {
+      localStorage.setItem('units', 'us');
+    }
+    if ($('#degC').hasClass('active')) {
+      localStorage.setItem('units', 'si');
+    }
 
     // zipcode input
     localStorage.setItem('zip', $('input[name=zip]').val());
