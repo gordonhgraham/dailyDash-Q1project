@@ -73,8 +73,9 @@ $(document).ready(() => {
 
     for (let i = 0; i < hourlyForecast.length; i++) {
       $(`#t${i + 1}hr`)
-        .text(`${hourlyForecast[i].time} ${hourlyForecast[i].temp}\u00B0
-        ${hourlyForecast[i].precipProb}% Chance of precipitation `);
+        .html(`<th scope="row">${hourlyForecast[i].time}:00</th>
+        <td>${hourlyForecast[i].temp}\u00B0</td>
+        <td>${hourlyForecast[i].precipProb}%</td>`);
     }
 
     // show icons for hourly forecast
