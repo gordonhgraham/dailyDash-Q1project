@@ -55,14 +55,11 @@ $(document).ready(() => {
       const unixTime = forecastResponse.hourly.data[i].time;
       const time = new Date(unixTime * 1000);
       const hour = formatHour(time.getHours());
-      const hourlyIcon =
-        forecastResponse.hourly.data[i].icon;
       const hourlyPrecipProb =
-        (forecastResponse.hourly.data[i].precipProbability) * 100;
+        Math.round((forecastResponse.hourly.data[i].precipProbability) * 100);
       const hourlyTemp =
         Math.round(forecastResponse.hourly.data[i].apparentTemperature);
       const hourlyForecastObj = {
-        icon: hourlyIcon,
         precipProb: hourlyPrecipProb,
         temp: hourlyTemp,
         time: hour
@@ -77,11 +74,6 @@ $(document).ready(() => {
         <td>${hourlyForecast[i].temp}\u00B0</td>
         <td>${hourlyForecast[i].precipProb}%</td>`);
     }
-
-    // show icons for hourly forecast
-    // const skycons = new Skycons({ color: '#f8f8f8' });
-    // skycons.add('icon_t+1hr', hourlyIcon);
-    // skycons.play();
   };
 
   // display daily forecast
