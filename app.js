@@ -25,8 +25,8 @@ $(document).ready(() => {
     $('degF').addClass('active');
     $('degC').removeClass('active');
   }
-  $('.imgCategory').hasClass('active')
-
+  $(`.${imgCategory.toLowerCase()}`).addClass('active');
+  
   // change background image based on user selected category
   $('body').css('background-image', `url('https://source.unsplash.com/category/${imgCategory}/1600x900')`);
 
@@ -251,7 +251,7 @@ $(document).ready(() => {
   $('#save_changes').click(() => {
     // background image category
     localStorage.setItem('imgCategory',
-    $('.imgCategory.active').text().toLowerCase());
+    $('.imgCategory.active').text());
 
     // 12 or 24 hr time
     localStorage.setItem('ampm', $('#12hr').hasClass('active'));
@@ -263,6 +263,8 @@ $(document).ready(() => {
     if ($('#degC').hasClass('active')) {
       localStorage.setItem('units', 'si');
     }
+
+    $(`.${imgCategory}`).addClass('active');
 
     // zipcode input
     localStorage.setItem('zip', $('input[name=zip]').val());
