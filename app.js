@@ -5,12 +5,16 @@ $(document).ready(() => {
   const zip = localStorage.getItem('zip');
   const ampm = JSON.parse(localStorage.getItem('ampm'));
 
-  // populate settings page with defaults
-  
   // populate settings page with user input
   $('input[name=zip]').val(zip);
-  $('#12hr').prop('checked', ampm);
-
+  if (ampm) {
+    $('#12hr').addClass('active');
+    $('#24hr').removeClass('active');
+  }
+  if (!ampm) {
+    $('#24hr').addClass('active');
+    $('#12hr').removeClass('active');
+  }
 
   // display current conditions
   const displayCurrentConditions = function() {
