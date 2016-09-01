@@ -5,8 +5,7 @@ $(document).ready(() => {
   const zip = localStorage.getItem('zip');
   const ampm = JSON.parse(localStorage.getItem('ampm'));
   const units = localStorage.getItem('units');
-
-  console.log(units);
+  const imgCategory = (localStorage.getItem('imgCategory')).slice(41);
 
   // populate settings page with user input
   $('input[name=zip]').val(zip);
@@ -26,6 +25,10 @@ $(document).ready(() => {
     $('degF').addClass('active');
     $('degC').removeClass('active');
   }
+  $('.imgCategory').hasClass('active')
+
+  // change background image based on user selected category
+  $('body').css('background-image', `url('https://source.unsplash.com/category/${imgCategory}/1600x900')`);
 
   // display current conditions
   const displayCurrentConditions = function() {
@@ -244,10 +247,12 @@ $(document).ready(() => {
     setTimeout(refreshWeatherData, 6e5);
   };
 
-  // display user input--radio buttons
-
   // save user input and refresh
   $('#save_changes').click(() => {
+    // background image category
+    localStorage.setItem('imgCategory',
+    $('.imgCategory.active').text().toLowerCase());
+
     // 12 or 24 hr time
     localStorage.setItem('ampm', $('#12hr').hasClass('active'));
 
