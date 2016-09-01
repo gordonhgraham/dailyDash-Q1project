@@ -140,7 +140,7 @@ $(document).ready(() => {
 
   // get weather data from forecast.io
   const queryForecast = function(lat, lon) {
-    const $forecastIO = $.getJSON(`https://dailydash.herokuapp.com/${lat},${lon}?units=${units}`);
+    const $forecastIO = $.getJSON(`https://dailydash.herokuapp.com/${lat},${lon}?units=${units}&exclude=minutely,alerts,flags`);
 
     $forecastIO.done((data) => {
       if ($forecastIO.status !== 200) {
