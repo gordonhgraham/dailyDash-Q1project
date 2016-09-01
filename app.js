@@ -45,19 +45,27 @@ $(document).ready(() => {
 
     // retreive forecast for each hour and store in array
     for (let i = 1; i < 5; i++) {
-      const hourlyTemp =
-        Math.round(forecastResponse.hourly.data[i].apparentTemperature);
+      const formatHour = function(hr) {
+        if (ampm === true) {
+          return (hr > 12) ? hr - 12 : hr;
+        }
 
+        return hr;
+      };
+      const unixTime = forecastResponse.hourly.data[i].time;
+      const time = new Date(unixTime * 1000);
+      const hour = formatHour(time.getHours());
       const hourlyIcon =
         forecastResponse.hourly.data[i].icon;
-
       const hourlyPrecipProb =
         (forecastResponse.hourly.data[i].precipProbability) * 100;
-
+      const hourlyTemp =
+        Math.round(forecastResponse.hourly.data[i].apparentTemperature);
       const hourlyForecastObj = {
         icon: hourlyIcon,
         precipProb: hourlyPrecipProb,
-        temp: hourlyTemp
+        temp: hourlyTemp,
+        time: hour
       };
 
       hourlyForecast.push(hourlyForecastObj);
@@ -65,7 +73,7 @@ $(document).ready(() => {
 
     for (let i = 0; i < hourlyForecast.length; i++) {
       $(`#t${i + 1}hr`)
-        .text(`+${i + 1} hr ${hourlyForecast[i].temp}\u00B0
+        .text(`${hourlyForecast[i].time} ${hourlyForecast[i].temp}\u00B0
         ${hourlyForecast[i].precipProb}% Chance of precipitation `);
     }
 
@@ -84,16 +92,24 @@ $(document).ready(() => {
 
     // retreive forecast for each day and store in array
     for (let i = 1; i < 5; i++) {
+      const formatDay = function(i) {
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+          'Friday', 'Saturday'
+        ];
+
+        return days[i];
+      };
       const dailyHighTemp =
         Math.round(forecastResponse.daily.data[i].apparentTemperatureMax);
-
+      const dailyIcon = forecastResponse.daily.data[i].icon;
       const dailyLowTemp =
         Math.round(forecastResponse.daily.data[i].apparentTemperatureMin);
-
-      const dailyIcon =
-        forecastResponse.daily.data[i].icon;
+      const unixTime = forecastResponse.daily.data[i].time;
+      const time = new Date(unixTime * 1000);
+      const forecastDay = formatDay(time.getDay());
 
       const dailyForecastObj = {
+        day: forecastDay,
         highTemp: dailyHighTemp,
         icon: dailyIcon,
         lowTemp: dailyLowTemp
@@ -104,7 +120,7 @@ $(document).ready(() => {
 
     for (let i = 0; i < dailyForecast.length; i++) {
       $(`#t${i + 1}d`)
-        .text(`+${i + 1}d High ${dailyForecast[i].highTemp}\u00B0
+        .text(`${dailyForecast[i].day} High ${dailyForecast[i].highTemp}\u00B0
         Low ${dailyForecast[i].lowTemp}\u00B0`);
     }
   };
