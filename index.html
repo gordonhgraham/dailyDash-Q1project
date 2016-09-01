@@ -69,13 +69,13 @@
                                 <p>
                                     <h4>Time Display:</h4>
                                 </p>
-                                <div class="btn-group 12or24" data-toggle="buttons">
-                                    <label class="btn btn-primary active">
-                                      <input id="12hr" type="checkbox" autocomplete="off"> 12 Hr </label>
-                                    <label class="btn btn-primary">
-                                      <input id="24hr" type="checkbox" autocomplete="off"> 24 Hr </label>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label id="12hr" class="btn btn-primary active">
+                                      <input type="radio" name="options" autocomplete="off" checked> 12 Hr </label>
+                                    <label id="24hr" class="btn btn-primary">
+                                      <input type="radio" name="options" autocomplete="off"> 24 Hr </label>
                                 </div>
-                                <br><br>
+                                    <br><br>
                             </li>
                             <li>
                                 <p>
@@ -83,9 +83,9 @@
                                 </p>
                                 <div class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-primary active">
-                                    <input id="12hr" type="checkbox" autocomplete="off"> F&deg; </label>
+                                    <input id="12hr" type="radio" autocomplete="off" checked> F&deg; </label>
                                     <label class="btn btn-primary">
-                                    <input id="24hr" type="checkbox" autocomplete="off" checked> C&deg; </label>
+                                    <input id="24hr" type="radio" autocomplete="off" checked> C&deg; </label>
                                 </div>
                                 <br><br>
                             </li>
@@ -98,21 +98,21 @@
                             </li>
                             <li>
                                 <p>
-                                  <h4>Calendar Subscriptions</h4>
+                                    <h4>Calendar Subscriptions</h4>
                                 </p>
                             </li>
                         </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="save_changes">Save changes &amp; Refresh</button>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="save_changes">Save changes &amp; Refresh</button>
-                    </div>
+                    <!-- /.modal-content -->
                 </div>
-                <!-- /.modal-content -->
+                <!-- /.modal-dialog -->
             </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
+            <!-- /.modal -->
     </header>
     <div class="main container-fluid">
         <div class="row top-row">
@@ -120,11 +120,16 @@
                 <p>
                     Daily Forcast
                     <ul>
-                        <li id="t1d"><p></p><canvas id="icon_t+1d" width="30" height="30"></canvas></li>
-                        <li id="t2d"><p></p><canvas id="icon_t+2d" width="30" height="30"></canvas></li>
-                        <li id="t3d"><p></p><canvas id="icon_t+3d" width="30" height="30"></canvas></li>
-                        <li id="t4d"><p></p><canvas id="icon_t+4d" width="30" height="30"></canvas></li>
-                        <li id="t5d"><p></p><canvas id="icon_t+5d" width="30" height="30"></canvas></li>
+                        <li id="t1d">
+                            <p></p><canvas id="icon_t+1d" width="30" height="30"></canvas></li>
+                        <li id="t2d">
+                            <p></p><canvas id="icon_t+2d" width="30" height="30"></canvas></li>
+                        <li id="t3d">
+                            <p></p><canvas id="icon_t+3d" width="30" height="30"></canvas></li>
+                        <li id="t4d">
+                            <p></p><canvas id="icon_t+4d" width="30" height="30"></canvas></li>
+                        <li id="t5d">
+                            <p></p><canvas id="icon_t+5d" width="30" height="30"></canvas></li>
                     </ul>
                 </p>
             </div>
@@ -132,10 +137,14 @@
                 <p>
                     Hourly Forecast
                     <ul>
-                        <li id="t1hr"><p></p><canvas id="icon_t+1hr" width="30" height="30"></canvas></li>
-                        <li id="t2hr"><p></p><canvas id="icon_t+2hr" width="30" height="30"></canvas></li>
-                        <li id="t3hr"><p></p><canvas id="icon_t+3hr" width="30" height="30"></canvas></li>
-                        <li id="t4hr"><p></p><canvas id="icon_t+4hr" width="30" height="30"></canvas></li>
+                        <li id="t1hr">
+                            <p></p><canvas id="icon_t+1hr" width="30" height="30"></canvas></li>
+                        <li id="t2hr">
+                            <p></p><canvas id="icon_t+2hr" width="30" height="30"></canvas></li>
+                        <li id="t3hr">
+                            <p></p><canvas id="icon_t+3hr" width="30" height="30"></canvas></li>
+                        <li id="t4hr">
+                            <p></p><canvas id="icon_t+4hr" width="30" height="30"></canvas></li>
                     </ul>
                 </p>
             </div>
@@ -153,13 +162,14 @@
                 </p>
             </div>
             <div id="date_time" class="col-md-6 widget">
-              <p>
-                <h1 id="time" class="text-center"></h1>
-                <h1 id="date" class="text-center"></h1>
-              </p>
+                <p>
+                    <h1 id="time" class="text-center"></h1>
+                    <h1 id="date" class="text-center"></h1>
+                </p>
             </div>
             <div id="current" class="col-md-3 widget">
-                Current Conditions <p id='location'></p> <br>
+                Current Conditions
+                <p id='location'></p> <br>
                 <canvas id="icon_current" width="75" height="75"></canvas>
                 <h1></h1>
                 <p id="summary"></p>

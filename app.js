@@ -5,6 +5,8 @@ $(document).ready(() => {
   const zip = localStorage.getItem('zip');
   const ampm = JSON.parse(localStorage.getItem('ampm'));
 
+  // populate settings page with defaults
+  
   // populate settings page with user input
   $('input[name=zip]').val(zip);
   $('#12hr').prop('checked', ampm);
@@ -211,14 +213,10 @@ $(document).ready(() => {
 
   // display user input--radio buttons
 
-  $('div.12or24 label').click(() => {
-    $('div.12or24 label').toggleClass('active');
-  });
-
   // save user input
   $('#save_changes').click(() => {
     // 12 or 24 hr time
-    localStorage.setItem('ampm', $('#12hr').prop('checked'));
+    localStorage.setItem('ampm', $('#12hr').hasClass('active'));
 
     // zipcode input
     localStorage.setItem('zip', $('input[name=zip]').val());
