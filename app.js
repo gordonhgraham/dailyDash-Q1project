@@ -89,6 +89,9 @@ $(document).ready(() => {
       JSON.parse(localStorage.getItem('forecastResponse'));
 
     const dailyForecast = [];
+    const skycons = new Skycons({
+      color: '#f8f8f8'
+    });
 
     // retreive forecast for each day and store in array
     for (let i = 1; i < 6; i++) {
@@ -121,9 +124,13 @@ $(document).ready(() => {
     for (let i = 0; i < dailyForecast.length; i++) {
       $(`#t${i + 1}d`)
         .html(`<th scope='row'>${dailyForecast[i].day}</th>
-        <td><canvas id="icon_t+${i}d" width="20" height="20"></canvas></td>
+        <td><canvas id="icon_t+${i}d" width="25" height="25"></canvas></td>
         <td>${dailyForecast[i].highTemp}\u00B0</td>
         <td>${dailyForecast[i].lowTemp}\u00B0</td>`);
+    }
+    for (let i = 0; i < dailyForecast.length; i++) {
+      skycons.add(`icon_t+${i}d`, dailyForecast[i].icon);
+      skycons.play();
     }
   };
 
