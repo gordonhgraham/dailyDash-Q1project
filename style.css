@@ -36,3 +36,7 @@ body {
   display: flex;
   align-items: flex-end;
 }
+
+a {
+  color: #f8f8f8;
+}
