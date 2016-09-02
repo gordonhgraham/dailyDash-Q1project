@@ -12,32 +12,37 @@ $(document).ready(() => {
   const units = localStorage.getItem('units');
   const imgCategory = (localStorage.getItem('imgCategory'));
 
-  // populate settings page with user input
-  $('input[name=zip]').val(zip);
-  if (ampm) {
-    $('#12hr').addClass('active');
-    $('#24hr').removeClass('active');
-  }
-  if (!ampm) {
-    $('#24hr').addClass('active');
-    $('#12hr').removeClass('active');
-  }
-  if (units === 'degF') {
-    $('degF').addClass('active');
-    $('degC').removeClass('active');
-  }
-  if (units === 'degC') {
-    $('degF').addClass('active');
-    $('degC').removeClass('active');
-  }
+  // function expressions
+  const displayUserSettings = function() {
+    // display zipcode
+    $('input[name=zip]').val(zip);
 
-  // $(`${imgCategory.toLowerCase()}`).addClass('active');
-  $(`input[value=${imgCategory}]`).parent().addClass('active');
+    // display 12 or 24 hr time
+    if (ampm) {
+      $('#12hr').addClass('active');
+      $('#24hr').removeClass('active');
+    }
+    if (!ampm) {
+      $('#24hr').addClass('active');
+      $('#12hr').removeClass('active');
+    }
 
-  // change background image based on user selected category
-  $('body').css('background-image', `url('https://source.unsplash.com/category/${imgCategory}/1600x900')`);
+    // display temperatute units
+    if (units === 'degF') {
+      $('degF').addClass('active');
+      $('degC').removeClass('active');
+    }
+    if (units === 'degC') {
+      $('degF').addClass('active');
+      $('degC').removeClass('active');
+    }
 
-  // display current conditions
+    // display selected img category
+    $(`input[value=${imgCategory}]`).parent().addClass('active');
+  };
+  const queryUnsplash = function() {
+    $('body').css('background-image', `url('https://source.unsplash.com/category/${imgCategory}/1600x900')`);
+  };
   const displayCurrentConditions = function() {
     const forecastResponse =
       JSON.parse(localStorage.getItem('forecastResponse'));
@@ -56,8 +61,6 @@ $(document).ready(() => {
     $('#current > #summary').text(currentSummary);
     skycons.play();
   };
-
-  // display hourly forecast
   const displayHourlyForecast = function() {
     const forecastResponse =
       JSON.parse(localStorage.getItem('forecastResponse'));
@@ -96,8 +99,6 @@ $(document).ready(() => {
         <td>${hourlyForecast[i].precipProb}%</td>`);
     }
   };
-
-  // display daily forecast
   const displayDailyForecast = function() {
     const forecastResponse =
       JSON.parse(localStorage.getItem('forecastResponse'));
@@ -109,12 +110,12 @@ $(document).ready(() => {
 
     // retreive forecast for each day and store in array
     for (let i = 1; i < 6; i++) {
-      const formatDay = function(i) {
+      const formatDay = function(j) {
         const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
           'Friday', 'Saturday'
         ];
 
-        return days[i];
+        return days[j];
       };
       const dailyHighTemp =
         Math.round(forecastResponse.daily.data[i].apparentTemperatureMax);
@@ -147,8 +148,6 @@ $(document).ready(() => {
       skycons.play();
     }
   };
-
-  // get weather data from forecast.io
   const queryForecast = function(lat, lon) {
     const $forecastIO = $.getJSON(`https://dailydash.herokuapp.com/${lat},${lon}?units=${units}&exclude=minutely,alerts,flags`);
 
@@ -167,9 +166,7 @@ $(document).ready(() => {
       return err;
     });
   };
-
-  // get latitude and longitude from google geocode API
-  const getLatLon = function(zip, units) {
+  const getLatLon = function() {
     const $geocode = $.getJSON(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=AIzaSyDRn-LQTI5bRG2k5CLE5elw8jgnthn20wk`);
 
     $geocode.done((data) => {
@@ -190,9 +187,7 @@ $(document).ready(() => {
       return err;
     });
   };
-
-  // get, format, display date and time
-  const dateTime = function(ampm) {
+  const dateTime = function() {
     const formatDay = function(i) {
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
         'Friday', 'Saturday'
@@ -248,7 +243,6 @@ $(document).ready(() => {
     getDate();
     getTime();
   };
-
   const refreshWeatherData = function() {
     getLatLon(zip);
     setTimeout(refreshWeatherData, 6e5);
@@ -257,9 +251,6 @@ $(document).ready(() => {
   // save user input and refresh
   $('#save_changes').click(() => {
     // background image category
-    // localStorage.setItem('imgCategory',
-    // $('.imgCategory.active').text());
-
     localStorage.setItem('imgCategory',
     $('input:checked').val());
 
@@ -277,10 +268,14 @@ $(document).ready(() => {
     // zipcode input
     localStorage.setItem('zip', $('input[name=zip]').val());
 
+    // refresh weather data and reload page
     refreshWeatherData();
     location.reload(true);
   });
 
-  dateTime(ampm);
-  refreshWeatherData(zip);
+  // function calls
+  dateTime();
+  queryUnsplash();
+  refreshWeatherData();
+  displayUserSettings();
 });
