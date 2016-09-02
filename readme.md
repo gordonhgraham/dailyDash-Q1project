@@ -4,7 +4,7 @@ A customizable landing page providing the user with date, time, current weather,
 DailyDash was built with HTML, CSS & Bootstrap, JavaScript & jQuery, and web APIs.
 
 ##Display
-![DailyDash](attr/img/dailyDashDisplay.png)
+![DailyDash](attr/img/dailyDashDisplay1.png)
 Main display of DailyDash with daily forecast, current time and date, hourly forecast, and current conditions.
 
 
