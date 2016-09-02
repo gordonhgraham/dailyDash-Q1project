@@ -7,6 +7,8 @@ DailyDash was built with HTML, CSS & Bootstrap, JavaScript & jQuery, and web API
 ![DailyDash](attr/img/dailyDashDisplay.png)
 Main display of DailyDash with daily forecast, current time and date, hourly forecast, and current conditions.
 
+
+
 ![DailyDashSettings](attr/img/dailyDashSettings.png)
 Settings and preferences page with options for background image category, time display, temperature display, and current location.
 
