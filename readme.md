@@ -15,11 +15,11 @@ This project will be built with HTML, CSS & Bootstrap, JavaScript & jQuery, and 
 - [ ] Have valid, well-indented, and semantic HTML.
 - [ ] Have valid, well-indented, and minimally-specific CSS.
 - [ ] Have linted, readable, and concise JavaScript.
-- [ ] Use embedded media like fonts, images, audio, or video.
-- [ ] Use a front-end framework like Bootstrap, Foundation, or Materialize.
+- [X] Use embedded media like fonts, images, audio, or video.
+- [X] Use a front-end framework like Bootstrap, Foundation, or Materialize.
 - [ ] Respond to form input and/or user events.
-- [ ] Connect to at least one external web API via Ajax.
-- [ ] Be deployed to a production environment.
+- [X] Connect to at least one external web API via Ajax.
+- [X] Be deployed to a production environment.
 
 ## Bonuses
 - [ ] Customize the color palette or theme of your front-end framework.

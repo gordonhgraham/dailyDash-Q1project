@@ -1,17 +1,28 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Hind', sans-serif;
+}
+
+.modal-body li {
+  list-style: none;
+}
+
 body {
   background-size: 100%;
   background-color: black;
   height: 100%;
   width: 100%;
-
-  /*background-image: url('https://source.unsplash.com/category/nature/daily')*/
 }
 
 .widget {
   background-color: #404040;
-  background-color: rgba(64, 64, 64, 0.8);
+  background-color: rgba(64, 64, 64, 0.6);
   border: 1px solid black;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px solid white;
+  /*border: 1px solid rgba(0, 0, 0, 0.5);*/
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(64, 64, 64, 0.8);
   padding: 15px;
