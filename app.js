@@ -2,12 +2,9 @@ $(document).ready(() => {
   'use strict';
 
   // set defaults
-  // if (!localStorage) {
-    // localStorage.setItem('imgCategory', 'nature');
-    // localStorage.setItem('ampm', true);
-    // localStorage.setItem('units', 'degF');
-    // localStorage.setItem('zip', 80302);
-  // }
+  if (localStorage.getItem('zip') === null) {
+    $('#myModal').modal('show');
+  }
 
   // user input
   const zip = localStorage.getItem('zip');
