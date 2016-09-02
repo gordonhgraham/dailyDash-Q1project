@@ -1,28 +1,18 @@
-#Daily Dash
-DailyDash is a personal project to practice material taught during Galvanize quarter 1 full stack program.
-This project will provide a user with a single page dashboard view of important data. This data may include:
-* a daily/weekly weather forecast
-* current date and time
-* calendar subscription
-* reminders/todos
-* notepad
+#DailyDash
+A customizable landing page providing the user with date, time, current weather, and forecast set atop a beautiful background image. The DailyDash will be helpful for users with access to a personal computer.
 
-The DailyDash will be helpful for users with regular access to a personal computer, or tablet.
+DailyDash was built with HTML, CSS & Bootstrap, JavaScript & jQuery, and web APIs.
 
-This project will be built with HTML, CSS & Bootstrap, JavaScript & jQuery, and web APIs.
+##Display
+![DailyDash](attr/img/dailyDashDisplay.png)
+Main display of DailyDash with daily forecast, current time and date, hourly forecast, and current conditions.
 
-## Technical Requirements
-- [X] Have valid, well-indented, and semantic HTML.
-- [X] Have valid, well-indented, and minimally-specific CSS.
-- [X] Have linted, readable, and concise JavaScript.
-- [X] Use embedded media like fonts, images, audio, or video.
-- [X] Use a front-end framework like Bootstrap, Foundation, or Materialize.
-- [X] Respond to form input and/or user events.
-- [X] Connect to at least one external web API via Ajax.
-- [X] Be deployed to a production environment.
+![DailyDashSettings](attr/img/dailyDashSettings.png)
+Settings and preferences page with options for background image category, time display, temperature display, and current location.
 
-## Bonuses
-- [X] Customize the color palette or theme of your front-end framework.
-- [ ] Optimize for various viewport sizes using responsive design.
-- [ ] Develop a game instead of an application.
-- [ ] Or connect to external hardware like an Arduino or MIDI keyboard.
+
+##Special Thanks
+* [Forecast.io](http://forecast.io) for the up to date weather information
+* [Unsplash](http://unsplash.com) for the beautiful photography integration.
+* [Surge](http://surge.sh) for fast and easy deployment.
+* [Pivotal](https://www.pivotaltracker.com/n/projects/1790215) for the easy tracking of progress and features.
